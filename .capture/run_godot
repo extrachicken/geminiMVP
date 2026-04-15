@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -o pipefail
+NOISE="leaked RID|Leaked instance|ObjectDB instances"
+/Applications/Godot_mono.app/Contents/MacOS/Godot --path /Users/sobolev/Desktop/geminiMVP --rendering-method forward_plus "$@" 2>&1 | { grep -v "$NOISE" || true; }

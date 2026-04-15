@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/PlayerController.cs" id="1_g2els"]
+[ext_resource type="Texture2D" path="res://sprites/hero_spritesheet.png" id="2_qhqgy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqkch"]
+radius = 22.0
+height = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qlg0r"]
+radius = 72.0
+
+[node name="Player" type="CharacterBody2D" unique_id=2007232796]
+collision_mask = 2
+script = ExtResource("1_g2els")
+
+[node name="@CollisionShape2D@2" type="CollisionShape2D" parent="." unique_id=799504231]
+position = Vector2(0, -47)
+shape = SubResource("CapsuleShape2D_dqkch")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=288510931]
+scale = Vector2(0.18181819, 0.18181819)
+texture = ExtResource("2_qhqgy")
+offset = Vector2(0, -368)
+region_enabled = true
+region_rect = Rect2(0, 0, 424, 880)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1482418279]
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=677370253]
+collision_layer = 0
+collision_mask = 4
+
+[node name="@CollisionShape2D@3" type="CollisionShape2D" parent="InteractionArea" unique_id=1041734434]
+position = Vector2(0, -47)
+shape = SubResource("CircleShape2D_qlg0r")

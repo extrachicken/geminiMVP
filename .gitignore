@@ -1,0 +1,10 @@
+.claude
+CLAUDE.md
+assets
+screenshots
+.vqa.log
+.godot
+*.import
+bin/
+obj/
+.DS_Store

@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/BedroomScene.cs" id="1_2f21x"]
+
+[node name="Bedroom" type="Node2D" unique_id=181038257]
+script = ExtResource("1_2f21x")

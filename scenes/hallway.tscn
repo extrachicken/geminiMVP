@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/HallwayScene.cs" id="1_owcqv"]
+
+[node name="Hallway" type="Node2D" unique_id=1656879196]
+script = ExtResource("1_owcqv")
