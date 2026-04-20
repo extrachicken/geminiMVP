@@ -16,6 +16,13 @@ public partial class MotherNPCController : InteractableBase
 
     public override void _Ready()
     {
+        // Restore persistent state — QuestManager survives scene transitions; this instance doesn't.
+        if (QuestManager.Instance.IsQuestComplete(QuestId))
+            _state = QuestState.Complete;
+        else if (QuestManager.Instance.IsQuestActive(QuestId))
+            _state = QuestState.Active;
+        // else: NotStarted (default)
+
         InteractLabel = "Talk";
         base._Ready();
         BuildSprite();
@@ -120,8 +127,9 @@ public partial class MotherNPCController : InteractableBase
         if (tex != null)
         {
             _sprite.Texture = tex;
-            // Mother sprite is 2480×3508; scale to ~180px height
-            float scale = 180f / 3508f;
+            _sprite.TextureFilter = CanvasItem.TextureFilterEnum.LinearWithMipmaps;
+            // Mother sprite is 2480×3508; scale to ~270px height (1080p)
+            float scale = 270f / 3508f;
             _sprite.Scale = new Vector2(scale, scale);
             // Shift up so feet align with origin
             _sprite.Offset = new Vector2(0, -3508f / 2f);

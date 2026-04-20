@@ -29,12 +29,17 @@ public partial class PlayerController : CharacterBody2D
         _camera       = GetNode<Camera2D>("Camera2D");
         _interactArea = GetNode<Area2D>("InteractionArea");
 
-        // Measure sprite sheet
+        // Measure sprite sheet and set quality / scale for 1080p
         if (_sprite.Texture != null)
         {
             _spriteWidth  = _sprite.Texture.GetWidth();
             _spriteHeight = _sprite.Texture.GetHeight();
             _frameWidth   = _spriteWidth / 3;
+
+            _sprite.TextureFilter = CanvasItem.TextureFilterEnum.LinearWithMipmaps;
+            float scale = 240f / _spriteHeight; // ~240px tall at 1080p
+            _sprite.Scale = new Vector2(scale, scale);
+            _sprite.Offset = new Vector2(0, -_spriteHeight / 2f + 72f); // feet at origin
 
             _sprite.RegionEnabled = true;
             SetIdlePose(); // start with front view

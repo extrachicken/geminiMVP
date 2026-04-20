@@ -9,6 +9,12 @@ public partial class GameManager : Node
     /// The spawn point name that the next loaded room scene will position the player at.
     public static string TargetSpawnPoint = "DefaultSpawn";
 
+    /// Items picked up this session — persists across scene loads.
+    public static readonly System.Collections.Generic.HashSet<string> PickedUpItems = new();
+
+    /// True after the orb intro has played — prevents replaying on hallway re-entry.
+    public static bool OrbIntroShown = false;
+
     /// Currently focused interactable (set by InteractableBase when player enters its area).
     public static InteractableBase? NearestInteractable { get; private set; }
 

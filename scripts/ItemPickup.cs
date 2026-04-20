@@ -32,6 +32,7 @@ public partial class ItemPickup : InteractableBase
         if (added)
         {
             _pickedUp = true;
+            GameManager.PickedUpItems.Add(Item.ItemId); // persist across scene reloads
             if (GameManager.NearestInteractable == this)
                 GameManager.SetNearestInteractable(null);
             QueueFree();

@@ -7,9 +7,9 @@ public abstract partial class RoomBase : Node2D
 {
     // ─── Subclass configuration ───────────────────────────────────────────────
 
-    protected virtual int   RoomWidth  { get; } = 1280;
-    protected virtual int   RoomHeight { get; } = 720;
-    protected virtual float FloorY     { get; } = 590f;
+    protected virtual int   RoomWidth  { get; } = 1920;
+    protected virtual int   RoomHeight { get; } = 1080;
+    protected virtual float FloorY     { get; } = 885f;
     protected virtual float WallThick  { get; } = 0f; // how far left/right walls push player inward
 
     // Background / palette
@@ -49,20 +49,20 @@ public abstract partial class RoomBase : Node2D
         // Floor (visual)
         AddColorRect(new Rect2(0, FloorY, RoomWidth, RoomHeight - FloorY), FloorColor, -9);
         // Floor wood-plank lines
-        for (float x = 80; x < RoomWidth; x += 80)
-            AddColorRect(new Rect2(x, FloorY + 2, 1, RoomHeight - FloorY - 4),
+        for (float x = 120; x < RoomWidth; x += 120)
+            AddColorRect(new Rect2(x, FloorY + 3, 2, RoomHeight - FloorY - 6),
                          new Color(0f, 0f, 0f, 0.18f), -8);
 
         // Ceiling (visual)
-        AddColorRect(new Rect2(0, 0, RoomWidth, 70), CeilColor, -9);
+        AddColorRect(new Rect2(0, 0, RoomWidth, 105), CeilColor, -9);
         // Baseboard trim line above floor
-        AddColorRect(new Rect2(0, FloorY - 4, RoomWidth, 4), new Color(0.35f, 0.22f, 0.10f), -8);
+        AddColorRect(new Rect2(0, FloorY - 6, RoomWidth, 6), new Color(0.35f, 0.22f, 0.10f), -8);
         // Ceiling cornice line
-        AddColorRect(new Rect2(0, 68, RoomWidth, 4), new Color(0.35f, 0.22f, 0.10f), -8);
+        AddColorRect(new Rect2(0, 102, RoomWidth, 6), new Color(0.35f, 0.22f, 0.10f), -8);
 
         // Wallpaper pattern (vertical stripes)
-        for (float x = 0; x < RoomWidth; x += 60)
-            AddColorRect(new Rect2(x, 72, 2, FloorY - 76), new Color(0.3f, 0.18f, 0.10f, 0.25f), -8);
+        for (float x = 0; x < RoomWidth; x += 90)
+            AddColorRect(new Rect2(x, 108, 3, FloorY - 114), new Color(0.3f, 0.18f, 0.10f, 0.25f), -8);
 
         // Floor collision
         AddFloorCollider();
@@ -82,11 +82,11 @@ public abstract partial class RoomBase : Node2D
         body.CollisionMask  = 0;
         var shape = new CollisionShape2D();
         var rect  = new RectangleShape2D();
-        rect.Size = new Vector2(RoomWidth + 200, 40);
+        rect.Size = new Vector2(RoomWidth + 300, 60);
         shape.Shape = rect;
-        shape.Position = new Vector2(RoomWidth / 2f, 20);
+        shape.Position = new Vector2(RoomWidth / 2f, 30);
         body.AddChild(shape);
-        body.Position = new Vector2(-100, FloorY);
+        body.Position = new Vector2(-150, FloorY);
         AddChild(body);
     }
 
@@ -113,7 +113,7 @@ public abstract partial class RoomBase : Node2D
                            string targetScene, string targetSpawn)
     {
         // Door visual (frame + dark interior)
-        var frame = AddColorRect(doorRect.Grow(6), new Color(0.38f, 0.22f, 0.09f), -7);
+        var frame = AddColorRect(doorRect.Grow(9), new Color(0.38f, 0.22f, 0.09f), -7);
         AddColorRect(doorRect, new Color(0.08f, 0.06f, 0.04f), -6);
         // Door handle dot
         bool leftSide = doorRect.Position.X < RoomWidth / 2f;
@@ -131,7 +131,7 @@ public abstract partial class RoomBase : Node2D
 
         var col = new CollisionShape2D();
         var sh  = new RectangleShape2D();
-        sh.Size = new Vector2(doorRect.Size.X + 60, doorRect.Size.Y);
+        sh.Size = new Vector2(doorRect.Size.X + 90, doorRect.Size.Y);
         col.Shape = sh;
         col.Position = doorRect.GetCenter();
         area.AddChild(col);
@@ -142,6 +142,9 @@ public abstract partial class RoomBase : Node2D
 
     protected void AddItem(ItemData item, Vector2 worldPos)
     {
+        // Skip items already picked up in this session
+        if (GameManager.PickedUpItems.Contains(item.ItemId)) return;
+
         var pickup = new ItemPickup();
         pickup.SetItem(item);
         pickup.Position = worldPos;
@@ -231,5 +234,5 @@ public abstract partial class RoomBase : Node2D
     }
 
     /// Spawn Y for the player given the room's floor.
-    protected float SpawnY => FloorY - 45f; // feet at FloorY (capsule half-height = 45)
+    protected float SpawnY => FloorY - 50f; // spawn slightly above floor; gravity lands the player
 }

@@ -34,41 +34,41 @@ public partial class MainMenuUI : Control
         // Decorative vertical stripe
         var stripe = new ColorRect();
         stripe.Color = new Color(0.5f, 0.4f, 0.1f, 0.06f);
-        stripe.Position = new Vector2(500, 0);
-        stripe.Size = new Vector2(280, 720);
+        stripe.Position = new Vector2(750, 0);
+        stripe.Size = new Vector2(420, 1080);
         AddChild(stripe);
 
-        // Title — no anchors, absolute position within full-screen parent
+        // Title
         var title = new Label();
         title.Text = "THE  HOUSE";
-        title.Position = new Vector2(0, 160);
-        title.Size = new Vector2(1280, 80);
+        title.Position = new Vector2(0, 240);
+        title.Size = new Vector2(1920, 100);
         title.HorizontalAlignment = HorizontalAlignment.Center;
         title.AddThemeColorOverride("font_color", Gold);
-        title.AddThemeFontSizeOverride("font_size", 54);
+        title.AddThemeFontSizeOverride("font_size", 80);
         AddChild(title);
 
         // Subtitle
         var subtitle = new Label();
         subtitle.Text = "A story in rooms";
-        subtitle.Position = new Vector2(0, 230);
-        subtitle.Size = new Vector2(1280, 30);
+        subtitle.Position = new Vector2(0, 348);
+        subtitle.Size = new Vector2(1920, 40);
         subtitle.HorizontalAlignment = HorizontalAlignment.Center;
         subtitle.AddThemeColorOverride("font_color", new Color(0.7f, 0.65f, 0.55f));
-        subtitle.AddThemeFontSizeOverride("font_size", 18);
+        subtitle.AddThemeFontSizeOverride("font_size", 26);
         AddChild(subtitle);
 
         // Divider
         var div = new ColorRect();
         div.Color = new Color(0.6f, 0.5f, 0.15f, 0.5f);
-        div.Position = new Vector2(530, 272);
-        div.Size = new Vector2(220, 1);
+        div.Position = new Vector2(795, 408);
+        div.Size = new Vector2(330, 2);
         AddChild(div);
 
         // Buttons
-        float btnCenterX = 640f;
-        float btnY = 310f;
-        float btnSpacing = 68f;
+        float btnCenterX = 960f;
+        float btnY = 460f;
+        float btnSpacing = 100f;
 
         MakeButton("  Play",     new Vector2(btnCenterX, btnY),                OnPlay);
         MakeButton("  Settings", new Vector2(btnCenterX, btnY + btnSpacing),   OnSettings);
@@ -78,10 +78,10 @@ public partial class MainMenuUI : Control
         var ver = new Label();
         ver.Text = "v0.1 MVP";
         ver.SetAnchorsPreset(LayoutPreset.BottomRight);
-        ver.Position = new Vector2(-100, -30);
-        ver.Size = new Vector2(90, 24);
+        ver.Position = new Vector2(-140, -44);
+        ver.Size = new Vector2(130, 34);
         ver.AddThemeColorOverride("font_color", new Color(0.4f, 0.4f, 0.4f));
-        ver.AddThemeFontSizeOverride("font_size", 12);
+        ver.AddThemeFontSizeOverride("font_size", 16);
         AddChild(ver);
 
         // Settings panel (hidden by default)
@@ -94,7 +94,7 @@ public partial class MainMenuUI : Control
 
     private void MakeButton(string text, Vector2 center, System.Action callback)
     {
-        const float W = 220f, H = 50f;
+        const float W = 320f, H = 72f;
         var btn = new Button();
         btn.Text = text;
         btn.Position = new Vector2(center.X - W / 2f, center.Y);
@@ -106,7 +106,7 @@ public partial class MainMenuUI : Control
         btn.AddThemeStyleboxOverride("hover",  hoverStyle);
         btn.AddThemeStyleboxOverride("pressed", ButtonStyleBox(new Color(0.08f, 0.06f, 0.12f)));
         btn.AddThemeColorOverride("font_color", new Color(0.92f, 0.90f, 0.86f));
-        btn.AddThemeFontSizeOverride("font_size", 20);
+        btn.AddThemeFontSizeOverride("font_size", 28);
 
         btn.Pressed += () => callback();
         AddChild(btn);
@@ -148,8 +148,8 @@ public partial class MainMenuUI : Control
     private Control BuildSettingsPanel()
     {
         var panel = new Panel();
-        panel.Position = new Vector2(380f, 100f);
-        panel.Size = new Vector2(520f, 480f);
+        panel.Position = new Vector2(570f, 150f);
+        panel.Size = new Vector2(780f, 720f);
 
         var style = new StyleBoxFlat();
         style.BgColor = PanelBg;
@@ -160,16 +160,16 @@ public partial class MainMenuUI : Control
         panel.AddThemeStyleboxOverride("panel", style);
 
         var vbox = new VBoxContainer();
-        vbox.Position = new Vector2(28, 24);
-        vbox.Size = new Vector2(464, 432);
-        vbox.AddThemeConstantOverride("separation", 18);
+        vbox.Position = new Vector2(40, 36);
+        vbox.Size = new Vector2(700, 648);
+        vbox.AddThemeConstantOverride("separation", 26);
         panel.AddChild(vbox);
 
         // Title
         var title = new Label();
         title.Text = "Settings";
         title.AddThemeColorOverride("font_color", Gold);
-        title.AddThemeFontSizeOverride("font_size", 22);
+        title.AddThemeFontSizeOverride("font_size", 32);
         vbox.AddChild(title);
 
         _masterSlider     = AddSlider(vbox, "Master Volume",     0, 1, 0.01f);

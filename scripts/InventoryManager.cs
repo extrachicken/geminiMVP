@@ -35,9 +35,9 @@ public partial class InventoryManager : Node
     private Label[] _slotLabels = new Label[SlotCount];
 
     // Slot visual constants
-    private const float SlotSize = 64f;
-    private const float SlotGap  = 8f;
-    private const float HotbarY  = 640f; // from top of viewport
+    private const float SlotSize = 80f;
+    private const float SlotGap  = 12f;
+    private const float HotbarY  = 980f; // from top of viewport (100px from bottom at 1080p)
     private static readonly Color EmptySlotColor      = new Color(0.18f, 0.18f, 0.22f, 0.92f);
     private static readonly Color SelectedBorderColor  = new Color(0.95f, 0.82f, 0.15f);
     private static readonly Color DefaultBorderColor   = new Color(0.35f, 0.35f, 0.42f);
@@ -110,7 +110,7 @@ public partial class InventoryManager : Node
         AddChild(_hudLayer);
 
         float totalWidth = SlotCount * SlotSize + (SlotCount - 1) * SlotGap;
-        float startX = (1280f - totalWidth) / 2f;
+        float startX = (1920f - totalWidth) / 2f;
 
         // Background panel
         var bg = new Panel();
@@ -140,19 +140,19 @@ public partial class InventoryManager : Node
             // Icon color rect (hidden when empty)
             var icon = new ColorRect();
             icon.Color = EmptySlotColor;
-            icon.Position = new Vector2(x + 8f, HotbarY + 8f);
-            icon.Size = new Vector2(SlotSize - 16f, SlotSize - 16f);
+            icon.Position = new Vector2(x + 10f, HotbarY + 10f);
+            icon.Size = new Vector2(SlotSize - 20f, SlotSize - 20f);
             icon.Visible = false;
             _hudLayer.AddChild(icon);
             _slotIcons[i] = icon;
 
             // Item name label (tiny, below icon)
             var lbl = new Label();
-            lbl.Position = new Vector2(x, HotbarY + SlotSize - 18f);
-            lbl.Size = new Vector2(SlotSize, 18f);
+            lbl.Position = new Vector2(x, HotbarY + SlotSize - 22f);
+            lbl.Size = new Vector2(SlotSize, 22f);
             lbl.HorizontalAlignment = HorizontalAlignment.Center;
             lbl.AddThemeColorOverride("font_color", Colors.WhiteSmoke);
-            lbl.AddThemeFontSizeOverride("font_size", 9);
+            lbl.AddThemeFontSizeOverride("font_size", 12);
             lbl.ClipText = true;
             lbl.Text = "";
             _hudLayer.AddChild(lbl);
@@ -165,10 +165,10 @@ public partial class InventoryManager : Node
             float x = startX + i * (SlotSize + SlotGap);
             var num = new Label();
             num.Text = (i + 1).ToString();
-            num.Position = new Vector2(x + 2f, HotbarY + 2f);
-            num.Size = new Vector2(20f, 16f);
+            num.Position = new Vector2(x + 3f, HotbarY + 3f);
+            num.Size = new Vector2(28f, 20f);
             num.AddThemeColorOverride("font_color", new Color(1, 1, 1, 0.4f));
-            num.AddThemeFontSizeOverride("font_size", 10);
+            num.AddThemeFontSizeOverride("font_size", 13);
             _hudLayer.AddChild(num);
         }
     }
